@@ -13,9 +13,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.5",
-        "maatwebsite/excel": "^3.1",
-        "phpoffice/phpspreadsheet": "^1.26",
-        "spatie/simple-excel": "^3.0",
+        "spatie/simple-excel": "1.13.1",
         "weidner/goutte": "^2.1"
     },
     "require-dev": {
