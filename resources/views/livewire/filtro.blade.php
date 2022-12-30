@@ -37,8 +37,24 @@
                                     <td>{{$dato['Q. Pdte Pedido de Venta']}}</td>
                                     <td>{{$dato['Cliente Solicitante']}}</td>
                                     <td>{{$dato['1ª Fecha']->format('d-m-Y')}}</td>
-                                    <td>{{$dato['FeFinOF'] != null ? $dato['FeFinOF']->format('d-m-Y') : ""}}</td>
-                                    <td>{{$dato['Fecha de entrega Pedido Compras'] != null ? $dato['Fecha de entrega Pedido Compras']->format('d-m-Y') : ""}}</td>
+                                    <td>
+                                        @if ($dato['FeFinOF'] != null && $dato['FeFinOF']->modify('+3 day') > $dato['1ª Fecha'])
+                                            <span class="badge bg-danger">
+                                        @else
+                                            <span>
+                                        @endif
+                                            {{$dato['FeFinOF'] != null ? $dato['FeFinOF']->format('d-m-Y') : ""}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @if ($dato['Fecha de entrega Pedido Compras'] != null && $dato['Fecha de entrega Pedido Compras']->modify('+3 day') > $dato['1ª Fecha'])
+                                            <span class="badge bg-danger">
+                                        @else
+                                            <span>
+                                        @endif
+                                        {{$dato['Fecha de entrega Pedido Compras'] != null ? $dato['Fecha de entrega Pedido Compras']->format('d-m-Y') : ""}}
+                                        </span>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
