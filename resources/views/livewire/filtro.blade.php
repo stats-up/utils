@@ -22,6 +22,8 @@
                                 <th>Q. Pdte Pedido de Venta</th>
                                 <th>Cliente Solicitante</th>
                                 <th>1ª Fecha</th>
+                                <th>FeFinOF</th>
+                                <th>Fecha de entrega Pedido Compras</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,7 +36,9 @@
                                     <td>{{$dato['Cantidad de pedido']}}</td>
                                     <td>{{$dato['Q. Pdte Pedido de Venta']}}</td>
                                     <td>{{$dato['Cliente Solicitante']}}</td>
-                                    <td>{{$dato['1ª Fecha']->format('d-m-Y');}}</td>
+                                    <td>{{$dato['1ª Fecha']->format('d-m-Y')}}</td>
+                                    <td>{{$dato['FeFinOF'] != null ? $dato['FeFinOF']->format('d-m-Y') : ""}}</td>
+                                    <td>{{$dato['Fecha de entrega Pedido Compras'] != null ? $dato['Fecha de entrega Pedido Compras']->format('d-m-Y') : ""}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
