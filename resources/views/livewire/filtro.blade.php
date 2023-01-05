@@ -8,20 +8,23 @@
                 </div>
                 <div class="text-danger" wire:loading wire:target="file">Uploading...</div>
             </div>
-            <div class="col-md-12 mt-5">
+            <div class="col-md-12 mt-5" >
                 <!--DATA TABLE-->
                 <div  class="table-responsive table-responsive-data2">
-                    <table id="table" class="table table-data2">
+                    <table id="table" class="table table-data2" style="font-size: 0.9rem;">
                         <thead>
                             <tr>
+                                <th>Documento de ventas</th>
                                 <th>N° Pedido Cliente</th>
                                 <th>Pos Ped Cliente</th>
                                 <th>Material</th>
                                 <th>Texto breve material</th>
                                 <th>Cantidad de pedido</th>
                                 <th>Q. Pdte Pedido de Venta</th>
+                                <th>Libre utilización</th>
                                 <th>Cliente Solicitante</th>
                                 <th>1ª Fecha</th>
+                                <th style="color: green">Orden</th>
                                 <th>FeFinOF</th>
                                 <th>Fecha de entrega Pedido Compras</th>
                             </tr>
@@ -29,30 +32,28 @@
                         <tbody>
                             @foreach ($datos as $dato)
                                 <tr>
+                                    <td>{{$dato['Documento de ventas']}}</td>
                                     <td>{{$dato['N° Pedido Cliente']}}</td>
                                     <td>{{$dato['Pos Ped Cliente']}}</td>
                                     <td>{{$dato['Material']}}</td>
                                     <td>{{$dato['Texto breve material']}}</td>
                                     <td>{{$dato['Cantidad de pedido']}}</td>
                                     <td>{{$dato['Q. Pdte Pedido de Venta']}}</td>
+                                    <td>{{$dato['Libre utilización']}}</td>
                                     <td>{{$dato['Cliente Solicitante']}}</td>
-                                    <td>{{$dato['1ª Fecha']->format('d-m-Y')}}</td>
+                                    <td style="white-space: nowrap;">{{$dato['1ª Fecha']->format('d-m-Y')}}</td>
                                     <td>
-                                        @if ($dato['FeFinOF'] != null && $dato['FeFinOF']->modify('+3 day') > $dato['1ª Fecha'])
-                                            <span class="badge bg-danger">
-                                        @else
-                                            <span>
-                                        @endif
-                                            {{$dato['FeFinOF'] != null ? $dato['FeFinOF']->format('d-m-Y') : ""}}
+                                        <span style="color: white">
+                                            {{$dato['1ª Fecha'] != null ? $dato['1ª Fecha']->format('Y-m-d') : ""}}
                                         </span>
                                     </td>
-                                    <td>
-                                        @if ($dato['Fecha de entrega Pedido Compras'] != null && $dato['Fecha de entrega Pedido Compras']->modify('+3 day') > $dato['1ª Fecha'])
-                                            <span class="badge bg-danger">
-                                        @else
-                                            <span>
-                                        @endif
-                                        {{$dato['Fecha de entrega Pedido Compras'] != null ? $dato['Fecha de entrega Pedido Compras']->format('d-m-Y') : ""}}
+                                    <td style="white-space: nowrap;">
+                                        <span>
+                                            {{$dato['FeFinOF'] != null ? $dato['FeFinOF']->format('d-m-Y') : ""}}
+                                        </span>
+                                    <td style="white-space: nowrap;">
+                                        <span>
+                                            {{$dato['Fecha de entrega Pedido Compras'] != null ? $dato['Fecha de entrega Pedido Compras']->format('d-m-Y') : ""}}
                                         </span>
                                     </td>
                                 </tr>
