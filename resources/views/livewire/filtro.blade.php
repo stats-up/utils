@@ -31,6 +31,18 @@
                         </thead>
                         <tbody>
                             @foreach ($datos as $dato)
+                                @php
+                                    $intervalFeFinOF = null;
+                                    $intervalFechaEntrega = null;
+                                    if($dato['1ª Fecha'] != null){
+                                        if($dato['FeFinOF'] != null){
+                                            $intervalFeFinOF = (new DateTimeImmutable($dato['FeFinOF']->format('Y-m-d')))->diff(new DateTimeImmutable($dato['1ª Fecha']->format('Y-m-d')))->format('%R%a');
+                                        }
+                                        if($dato['Fecha de entrega Pedido Compras'] != null){
+                                            $intervalFechaEntrega = (new DateTimeImmutable($dato['Fecha de entrega Pedido Compras']->format('Y-m-d')))->diff(new DateTimeImmutable($dato['1ª Fecha']->format('Y-m-d')))->format('%R%a');
+                                        }
+                                    }
+                                @endphp
                                 <tr>
                                     <td>{{$dato['Documento de ventas']}}</td>
                                     <td>{{$dato['N° Pedido Cliente']}}</td>
@@ -41,20 +53,59 @@
                                     <td>{{$dato['Q. Pdte Pedido de Venta']}}</td>
                                     <td>{{$dato['Libre utilización']}}</td>
                                     <td>{{$dato['Cliente Solicitante']}}</td>
-                                    <td style="white-space: nowrap;">{{$dato['1ª Fecha']->format('d-m-Y')}}</td>
-                                    <td>
-                                        <span style="color: white">
-                                            {{$dato['1ª Fecha'] != null ? $dato['1ª Fecha']->format('Y-m-d') : ""}}
-                                        </span>
+                                    <td style="white-space: nowrap;">
+                                        @if($dato['1ª Fecha'] != null)
+                                            {{$dato['1ª Fecha']->format('d-m-Y')}}
+                                        @endif
                                     </td>
-                                    <td style="white-space: nowrap;">
-                                        <span>
-                                            {{$dato['FeFinOF'] != null ? $dato['FeFinOF']->format('d-m-Y') : ""}}
-                                        </span>
-                                    <td style="white-space: nowrap;">
-                                        <span>
-                                            {{$dato['Fecha de entrega Pedido Compras'] != null ? $dato['Fecha de entrega Pedido Compras']->format('d-m-Y') : ""}}
-                                        </span>
+                                    <td>
+                                        @if($dato['1ª Fecha'] != null)
+                                            <span style="color: white">
+                                                {{$dato['1ª Fecha']->format('Y-m-d')}}
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td class="text-center" style="white-space: nowrap;">
+                                        @if($dato['FeFinOF'] != null)
+                                            <span>
+                                                {{$dato['FeFinOF']->format('d-m-Y')}}
+                                            </span>
+                                            <br>
+                                            @if ($intervalFeFinOF > 0)
+                                                <span class="badge bg-success">
+                                                    {{$intervalFeFinOF}}
+                                                </span>
+                                            @elseif($intervalFeFinOF >= -3)
+                                                <span class="badge bg-warning">
+                                                    {{$intervalFeFinOF}}
+                                                </span>
+                                            @else
+                                                <span class="badge bg-danger">
+                                                    {{$intervalFeFinOF}}
+                                                </span>
+                                            @endif
+                                            
+                                        @endif
+                                    <td class="text-center" style="white-space: nowrap;">
+                                        @if($dato['Fecha de entrega Pedido Compras'] != null)
+                                            <span>
+                                                {{$dato['Fecha de entrega Pedido Compras'] != null ? $dato['Fecha de entrega Pedido Compras']->format('d-m-Y') : ""}}
+                                            </span>
+                                            <br>
+                                            @if ($intervalFechaEntrega > 0)
+                                                <span class="badge bg-success">
+                                                    {{$intervalFechaEntrega}}
+                                                </span>
+                                            @elseif($intervalFechaEntrega >= -3)
+                                                <span class="badge bg-warning">
+                                                    {{$intervalFechaEntrega}}
+                                                </span>
+                                            @else
+                                                <span class="badge bg-danger">
+                                                    {{$intervalFechaEntrega}}
+                                                </span>
+                                            @endif
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
