@@ -13,7 +13,7 @@
                 <div  class="table-responsive table-responsive-data2">
                     <table id="table" class="table table-data2" style="font-size: 0.9rem;">
                         <thead>
-                            <tr>
+                            <tr style="font-size: 0.8rem;">
                                 <th>Documento de ventas</th>
                                 <th>N° Pedido Cliente</th>
                                 <th>Pos Ped Cliente</th>
@@ -24,9 +24,10 @@
                                 <th>Libre utilización</th>
                                 <th>Cliente Solicitante</th>
                                 <th>1ª Fecha</th>
-                                <th style="color: green">Orden</th>
                                 <th>FeFinOF</th>
+                                <th>Diff</th>
                                 <th>Fecha de entrega Pedido Compras</th>
+                                <th>Diff</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,24 +54,20 @@
                                     <td>{{$dato['Q. Pdte Pedido de Venta']}}</td>
                                     <td>{{$dato['Libre utilización']}}</td>
                                     <td>{{$dato['Cliente Solicitante']}}</td>
-                                    <td style="white-space: nowrap;">
+                                    <td data-order="{{$dato['1ª Fecha']->format('Y-m-d')}}" style="white-space: nowrap;">
                                         @if($dato['1ª Fecha'] != null)
                                             {{$dato['1ª Fecha']->format('d-m-Y')}}
                                         @endif
                                     </td>
-                                    <td>
-                                        @if($dato['1ª Fecha'] != null)
-                                            <span style="color: white">
-                                                {{$dato['1ª Fecha']->format('Y-m-d')}}
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td class="text-center" style="white-space: nowrap;">
+                                    <td data-order="{{$dato['FeFinOF'] != null ? $dato['FeFinOF']->format('Y-m-d') : ""}}" class="text-center" style="white-space: nowrap;">
                                         @if($dato['FeFinOF'] != null)
                                             <span>
                                                 {{$dato['FeFinOF']->format('d-m-Y')}}
                                             </span>
-                                            <br>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($intervalFeFinOF != null)
                                             @if ($intervalFeFinOF > 0)
                                                 <span class="badge bg-success">
                                                     {{$intervalFeFinOF}}
@@ -84,14 +81,17 @@
                                                     {{$intervalFeFinOF}}
                                                 </span>
                                             @endif
-                                            
                                         @endif
-                                    <td class="text-center" style="white-space: nowrap;">
+                                    </td>
+                                    <td data-order="{{$dato['Fecha de entrega Pedido Compras'] != null ? $dato['Fecha de entrega Pedido Compras']->format('Y-m-d') : ""}}" class="text-center" style="white-space: nowrap;">
                                         @if($dato['Fecha de entrega Pedido Compras'] != null)
                                             <span>
                                                 {{$dato['Fecha de entrega Pedido Compras'] != null ? $dato['Fecha de entrega Pedido Compras']->format('d-m-Y') : ""}}
                                             </span>
-                                            <br>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($intervalFechaEntrega != null)
                                             @if ($intervalFechaEntrega > 0)
                                                 <span class="badge bg-success">
                                                     {{$intervalFechaEntrega}}
@@ -125,8 +125,14 @@
                 ],
                 buttons: {
                     buttons: [
-                        { extend: 'csv', className: 'btn-info mb-2', text: "Descargar CSV" },
-                        { extend: 'excel', className: 'bg-primary mb-2', text: "Descargar Excel (xlsx)" }
+                        {
+                            extend: 'excel', 
+                            className: 'bg-primary mb-2', 
+                            text: "Descargar Excel (xlsx)",
+                            exportOptions: {
+                                columns: [0,1,2,3,4,5,6,7,8,9,10,12]
+                            }
+                        }
                     ]
                 },
                 order: [2, "desc" ],
