@@ -17,6 +17,7 @@
                                 <th>Documento de ventas</th>
                                 <th>N° Pedido Cliente</th>
                                 <th>Pos Ped Cliente</th>
+                                <th>Pos SAP</th>
                                 <th>Material</th>
                                 <th>Texto breve material</th>
                                 <th>Cantidad de pedido</th>
@@ -48,6 +49,7 @@
                                     <td>{{$dato['Documento de ventas']}}</td>
                                     <td>{{$dato['N° Pedido Cliente']}}</td>
                                     <td>{{$dato['Pos Ped Cliente']}}</td>
+                                    <td>{{$dato['Posición pedido de Venta']}}</td>
                                     <td>{{$dato['Material']}}</td>
                                     <td>{{$dato['Texto breve material']}}</td>
                                     <td>{{$dato['Cantidad de pedido']}}</td>
