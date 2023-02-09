@@ -130,10 +130,10 @@
                         {
                             extend: 'excel', 
                             className: 'bg-primary mb-2', 
-                            text: "Descargar Excel (xlsx)",
-                            exportOptions: {
-                                columns: [0,1,2,3,4,5,6,7,8,9,10,12]
-                            }
+                            text: "Descargar Excel (xlsx)"//,
+                            // exportOptions: {
+                            //     columns: [0,1,2,3,4,5,6,7,8,9,10,12]
+                            // }
                         }
                     ]
                 },
