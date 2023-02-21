@@ -30,7 +30,8 @@ class StatsUpController extends Controller
         }
         return false;
     }
-    public function sso(){
+    public function sso(Request $request){
+        dd($_POST);
         $url = $_SERVER['REQUEST_URI'];
         //if url contains # replace with ? for query string
         if(strpos($url, '#') !== false){
@@ -52,7 +53,11 @@ class StatsUpController extends Controller
             //Decode json
             dd(json_decode($r, true));
         }else{
-            dd("No se recibió el token", $_GET);
+            dd(
+                "No se recibió el token",
+                $_GET,
+                "https://login.microsoftonline.com/307f5b66-6bdd-415b-a62e-25bda517ffd7/oauth2/v2.0/authorize?client_id=26ebf6dc-694d-4aee-85c3-138242998195&response_type=token+id_token&redirect_uri=https%3A%2F%2Futils.statsup.cl%2Ftest%2Fsso%2Faad%2F&scope=user.read+openid+profile+email&response_mode=form_post&state=12345&nonce=678910"
+            );
         }
     }
 }
