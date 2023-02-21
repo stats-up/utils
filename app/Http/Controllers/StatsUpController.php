@@ -32,7 +32,7 @@ class StatsUpController extends Controller
     }
     public function sso(){
         if(isset($_GET["code"])){
-            
+            dd("Se recibió el código de autorización", $_GET);
         }else{
             dd("No se recibió el código de autorización", $_GET);
         }
