@@ -31,10 +31,28 @@ class StatsUpController extends Controller
         return false;
     }
     public function sso(){
-        if(isset($_GET["code"])){
-            dd("Se recibió el código de autorización", $_GET);
+        $url = $_SERVER['REQUEST_URI'];
+        //if url contains # replace with ? for query string
+        if(strpos($url, '#') !== false){
+            $url = str_replace('#', '?', $url);
+            return redirect($url);
+        }
+        if(isset($_GET["access_token"])){
+            $access_token = $_GET["access_token"];
+            $url = "https://graph.microsoft.com/oidc/userinfo";
+            // Init, execute, close curl
+            $ch = curl_init();
+            //dd($ch);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $access_token));
+            $r = curl_exec($ch);
+            curl_close($ch);
+            //dd($r);
+            //Decode json
+            dd(json_decode($r, true));
         }else{
-            dd("No se recibió el código de autorización", $_GET);
+            dd("No se recibió el token", $_GET);
         }
     }
 }
