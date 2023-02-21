@@ -31,7 +31,6 @@ class StatsUpController extends Controller
         return false;
     }
     public function sso(Request $request){
-        dd($_POST);
         $url = $_SERVER['REQUEST_URI'];
         //if url contains # replace with ? for query string
         if(strpos($url, '#') !== false){
