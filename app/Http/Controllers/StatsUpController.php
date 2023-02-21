@@ -30,4 +30,11 @@ class StatsUpController extends Controller
         }
         return false;
     }
+    public function sso(){
+        if(isset($_GET["code"])){
+            
+        }else{
+            dd("No se recibió el código de autorización", $_GET);
+        }
+    }
 }

@@ -20,3 +20,4 @@ Route::get('/', Filtro::class);
 
 Route::get('/sup', [StatsUpController::class, 'home']);
 Route::get('/sup/{path}', [StatsUpController::class, 'recepcionista']);
+Route::get('/test/sso/aad', [StatsUpController::class, 'sso']);
