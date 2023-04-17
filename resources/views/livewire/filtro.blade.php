@@ -23,6 +23,7 @@
                                 <th>Cantidad de pedido</th>
                                 <th>Q. Pdte Pedido de Venta</th>
                                 <th>Libre utilización</th>
+                                <th>Creado el</th>
                                 <th>Cliente Solicitante</th>
                                 <th>1ª Fecha</th>
                                 <th>FeFinOF</th>
@@ -55,6 +56,13 @@
                                     <td>{{$dato['Cantidad de pedido']}}</td>
                                     <td>{{$dato['Q. Pdte Pedido de Venta']}}</td>
                                     <td>{{$dato['Libre utilización']}}</td>
+                                    <td data-order="{{$dato['Creado el']->format('Y-m-d')}}" class="text-center" style="white-space: nowrap;">
+                                        @if($dato['Creado el'] != null)
+                                            <span>
+                                                {{$dato['Creado el']->format('d-m-Y')}}
+                                            </span>
+                                        @endif
+                                    </td>
                                     <td>{{$dato['Cliente Solicitante']}}</td>
                                     <td data-order="{{$dato['1ª Fecha']->format('Y-m-d')}}" style="white-space: nowrap;">
                                         @if($dato['1ª Fecha'] != null)
