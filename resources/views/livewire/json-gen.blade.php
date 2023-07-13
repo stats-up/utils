@@ -13,7 +13,7 @@
                     </select>
                 </div>
                 <div>
-                    Token
+                    API Key
                     <input type="text" class="form-control" wire:model="token" placeholder="Opcional">
                 </div>
                 <div class="mt-2 text-center">
