@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\StatsUpController;
+use App\Http\Livewire\Menu;
 use App\Http\Livewire\Filtro;
+use App\Http\Livewire\JsonGen;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +18,12 @@ use App\Http\Livewire\Filtro;
 |
 */
 
-Route::get('/', Filtro::class);
-
+Route::get('/', Menu::class);
+Route::get('/filtro', Filtro::class);
+Route::get('/json-gen', JsonGen::class);
+Route::get('/5sc', function () {
+    return view('5sc');
+});
 Route::get('/sup', [StatsUpController::class, 'home']);
 Route::get('/sup/{path}', [StatsUpController::class, 'recepcionista']);
 Route::get('/test/sso/aad', [StatsUpController::class, 'sso']);

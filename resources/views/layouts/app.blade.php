@@ -38,6 +38,9 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <!-- sweet alert -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <!-- ACE EDITOR -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.4/ace.js" integrity="sha512-W2EhLZb9bxEATRhug+NU1OHCaM0hovRJbR7BvUNEytEWYJKxZiL4fGz3tiPpid0nycdwW7EnGlSonxvrs+EU6g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.4/ace.min.js" integrity="sha512-j/s6QJ8uW2gD8owi6Mw45E2k8w9TwRojEesI02CWZFGxVcQPGfdIwFzKHRONoCYwLMgDdOXORArWjl2oFWFc5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         @livewireStyles
         @livewireScripts
     </head>
