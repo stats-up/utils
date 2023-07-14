@@ -31,7 +31,7 @@
                         editor.setTheme("ace/theme/github");
                         editor.session.setMode("ace/mode/json");
                         $("#generar").click(function(){
-                            var json = editor.getValue().replace(/\n/g, "").replace(/\t/g, "").replace(/\r/g, "").replace(/ /g, "");
+                            var json = editor.getValue().replace(/\n/g, "").replace(/\t/g, "").replace(/\r/g, "").replace(/  /g, " ");
                             @this.generar(json);
                         });
                     </script>
