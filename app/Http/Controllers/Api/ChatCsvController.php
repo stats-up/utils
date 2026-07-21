@@ -103,6 +103,71 @@ class ChatCsvController extends Controller
     }
 
     /**
+     * List chat users.
+     */
+    public function users(Request $request): JsonResponse
+    {
+        $authUser = $this->authenticatedUser($request);
+        if (!$authUser) {
+            return response()->json([
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+
+        $limit = (int) $request->query('limit', 100);
+        if ($limit <= 0) {
+            $limit = 100;
+        }
+        if ($limit > 200) {
+            $limit = 200;
+        }
+
+        $q = mb_strtolower(trim((string) $request->query('q', '')));
+        $excludeSelf = $request->query('exclude_self', '1') !== '0';
+
+        $users = $this->readCsvAssoc($this->usersFilePath());
+        $authUserId = (int) $authUser['id'];
+        $result = [];
+
+        foreach ($users as $user) {
+            $userId = isset($user['id']) ? (int) $user['id'] : 0;
+            if ($userId <= 0) {
+                continue;
+            }
+
+            if ($excludeSelf && $userId === $authUserId) {
+                continue;
+            }
+
+            if ($q !== '') {
+                $name = mb_strtolower((string) ($user['name'] ?? ''));
+                $email = mb_strtolower((string) ($user['email'] ?? ''));
+                if (mb_strpos($name, $q) === false && mb_strpos($email, $q) === false) {
+                    continue;
+                }
+            }
+
+            $result[] = $this->publicUser($user);
+        }
+
+        usort($result, function ($left, $right) {
+            return ((int) $left['id']) <=> ((int) $right['id']);
+        });
+
+        $result = array_slice($result, 0, $limit);
+
+        return response()->json([
+            'data' => $result,
+            'meta' => [
+                'limit' => $limit,
+                'count' => count($result),
+                'query' => $q,
+                'exclude_self' => $excludeSelf,
+            ],
+        ]);
+    }
+
+    /**
      * Send a message to another user. Chat file name format: minId_maxId.csv
      */
     public function sendMessage(Request $request, $otherUserId): JsonResponse

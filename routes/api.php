@@ -52,6 +52,7 @@ Route::post('/get-json/{key}', function ($key) {
 Route::prefix('chat')->group(function () {
     Route::post('/auth/register', [ChatCsvController::class, 'register']);
     Route::post('/auth/login', [ChatCsvController::class, 'login']);
+    Route::get('/users', [ChatCsvController::class, 'users']);
     Route::post('/chats/{otherUserId}/messages', [ChatCsvController::class, 'sendMessage']);
     Route::get('/chats/{otherUserId}/messages', [ChatCsvController::class, 'lastMessages']);
 });

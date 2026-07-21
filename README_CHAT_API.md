@@ -6,6 +6,7 @@ Incluye:
 
 - autenticacion
 - creacion de cuentas
+- listado de usuarios
 - envio de mensajes
 - lectura de los ultimos 100 mensajes
 
@@ -140,6 +141,47 @@ Errores:
 
 ### 3.3 Enviar mensaje
 
+### 3.3 Listar usuarios
+
+`GET /api/chat/users?limit=100&q=juan&exclude_self=1`
+
+Headers:
+
+- `Authorization: Bearer TOKEN_GENERADO`
+
+Reglas:
+
+- `limit` por defecto `100`
+- `limit` maximo `200`
+- `q` es opcional (busca por nombre o email)
+- `exclude_self=1` por defecto para no incluir tu propio usuario
+
+Respuesta `200`:
+
+```json
+{
+  "data": [
+    {
+      "id": 542,
+      "name": "Maria Gomez",
+      "email": "maria@example.com"
+    }
+  ],
+  "meta": {
+    "limit": 100,
+    "count": 1,
+    "query": "juan",
+    "exclude_self": true
+  }
+}
+```
+
+Errores:
+
+- `401` no autenticado
+
+### 3.4 Enviar mensaje
+
 `POST /api/chat/chats/{otherUserId}/messages`
 
 Headers:
@@ -176,7 +218,7 @@ Errores:
 - `404` receptor no existe
 - `422` validacion o ids invalidos
 
-### 3.4 Ultimos 100 mensajes
+### 3.5 Ultimos 100 mensajes
 
 `GET /api/chat/chats/{otherUserId}/messages?limit=100&before_id=200`
 
