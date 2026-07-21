@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ChatCsvController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -46,4 +47,11 @@ Route::post('/get-json/{key}', function ($key) {
         }
     }
     return json_decode($json["data"],true);
+});
+
+Route::prefix('chat')->group(function () {
+    Route::post('/auth/register', [ChatCsvController::class, 'register']);
+    Route::post('/auth/login', [ChatCsvController::class, 'login']);
+    Route::post('/chats/{otherUserId}/messages', [ChatCsvController::class, 'sendMessage']);
+    Route::get('/chats/{otherUserId}/messages', [ChatCsvController::class, 'lastMessages']);
 });
